@@ -3,6 +3,32 @@ Trying to automatise creating code in pwntools for simple ROP chains
 
 Usage examples:
 
+Help:
+```bash
+usage: auto-ropper.py [-h] --elf ELF [--execve] [--read] [--readaddr READADDR] [--readcount READCOUNT] [--write] [--writeaddr WRITEADDR] [--writecount WRITECOUNT]
+                      [--mprotect] [--mprotectaddr MPROTECTADDR] [--putsleak]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --execve              Tries to create execve syscall
+  --read                Tries to create read syscall
+  --readaddr READADDR   Start address for read to use. If none specified, it uses the the start got.plt address + 0x500
+  --readcount READCOUNT
+                        Amount you would like to read
+  --write               Tries to create write syscall
+  --writeaddr WRITEADDR
+                        Start address for write to use. If none specified, it uses the start got.plt address + 0x500
+  --writecount WRITECOUNT
+                        Amount you would like to write. If none specified 0x100
+  --mprotect            Tries to create an mprotect syscall
+  --mprotectaddr MPROTECTADDR
+                        Address of section you would like to mprotect. If none specified it uses the start got.plt address + 0x500
+  --putsleak            Tries to create a libc leak using puts
+
+required named arguments:
+  --elf ELF             The binary you would like to use
+```
+
 Creating execve pwntools code from libc:
 ```bash 
 └─$ python3 auto-ropper.py --elf ./libc-2.28.so --execve                                                                                                           2 ⨯
